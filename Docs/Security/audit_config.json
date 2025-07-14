@@ -1,0 +1,9 @@
+{
+  "audit_enabled": true,
+  "log_retention_days": 90,
+  "block_on_critical": true,
+  "block_on_high": false,
+  "notification_level": "INFO",
+  "created": "2025-07-14T14:31:51.044624",
+  "project_path": "/home/herb/Desktop/GitGuard"
+}
