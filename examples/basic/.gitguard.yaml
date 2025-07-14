@@ -1,0 +1,76 @@
+# GitGuard Configuration
+# Basic configuration for individual developers
+
+security:
+  # Block commits with critical security issues
+  block_on_critical: true
+  
+  # Allow commits with high-severity issues (can be changed to true for stricter security)
+  block_on_high: false
+  
+  # Enable automatic fixing when possible
+  auto_fix_enabled: true
+  
+  # Scan file contents for embedded secrets
+  scan_file_contents: true
+  
+  # Maximum file size to scan (in MB)
+  max_file_size_mb: 1
+  
+  # Custom patterns specific to your organization
+  custom_patterns:
+    - "COMPANY_API_KEY_.*"
+    - "INTERNAL_SECRET_.*"
+    - "MY_PROJECT_TOKEN_.*"
+
+audit:
+  # Enable comprehensive audit logging
+  enabled: true
+  
+  # Keep audit logs for 30 days (increase for compliance requirements)
+  retention_days: 30
+  
+  # Log format: json, yaml, or text
+  log_format: json
+  
+  # Include file content in logs (disable for sensitive projects)
+  include_content: false
+  
+  # Compress old log files to save space
+  compress_old_logs: true
+
+remediation:
+  # Ask for confirmation before making changes
+  interactive_mode: true
+  
+  # Create backups before destructive operations
+  create_backups: true
+  
+  # Clean sensitive data from git history
+  clean_git_history: true
+  
+  # Automatically update .gitignore file
+  update_gitignore: true
+  
+  # Remove sensitive files from filesystem (dangerous - use with caution)
+  remove_files: false
+
+notification:
+  # Show notifications in console
+  console_notifications: true
+  
+  # Send email alerts (requires email configuration)
+  email_alerts: false
+  
+  # Slack webhook for team notifications
+  slack_webhook: null
+
+integration:
+  # Enable GitHub security checks
+  github_checks: false
+  
+  # JIRA project for security issues
+  jira_project: null
+  
+  # Enable CI/CD integration
+  ci_cd_integration: false

@@ -1,0 +1,156 @@
+# GitGuard Project .gitignore
+# This is the .gitignore for the GitGuard project itself
+# It demonstrates the security patterns GitGuard would enforce
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Logs and Debugging
+*.log
+logs/
+debug.log
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Security-sensitive files (GitGuard's own examples)
+# These patterns show what GitGuard would protect
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+.env.staging
+*.secret
+*_secret.*
+secrets.json
+api_keys.json
+
+# Certificates and keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+private_key.*
+ssl_cert.*
+
+# Cloud provider credentials
+*credentials.json
+*service-account*.json
+aws-credentials
+gcp-credentials
+azure-credentials
+
+# Database credentials
+database.conf
+db_config.json
+connection_string.*
+
+# Development artifacts we don't want to commit
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+tmp/
+temp/
+
+# IDE-specific files
+.vscode/settings.json
+.idea/workspace.xml
+
+# GitGuard specific
+# Scripts directory is hidden to avoid path confusion
+..Scripts/
+.gitguard/
+gitguard_backup/
+
+# Documentation build artifacts
+docs/_build/
+docs/build/
+
+# Node modules (if any JS tools are added)
+node_modules/
+
+# Backup and temporary files
+*.backup
+*.bak
+*~
+.#*
+#*#
+
+# OS generated files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project-specific exclusions
+# Any files that would be flagged by GitGuard itself
+config/production/
+config/secrets/
+deployment/secrets/
