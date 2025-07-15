@@ -19,7 +19,7 @@ if (this_directory / "requirements.txt").exists():
 
 setup(
     name="gitguard",
-    version="1.0.0",
+    version="1.0.2",
     author="Herbert J. Bowers (Project Creator), Claude (Anthropic) - Technical Implementation",
     author_email="HimalayaProject1@gmail.com",
     description="Enterprise-grade secure git workflow system - Part of Project Himalaya demonstrating AI-human collaboration",
