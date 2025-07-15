@@ -21,24 +21,19 @@ This project demonstrates the potential of AI-human collaboration in creating
 enterprise-grade security solutions as part of the broader Project Himalaya framework.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.2"
 __author__ = "Herbert J. Bowers (Project Creator), Claude (Anthropic) - Technical Implementation"
 __email__ = "HimalayaProject1@gmail.com"
 __license__ = "MIT"
 
 # Core imports for easy access
 from .validator import SecurityValidator
-from .remediator import SecurityRemediator  
-from .auditor import SecurityAuditor
-from .scanner import SecurityScanner
 from .config import GitGuardConfig
 
 # Exception classes
 from .exceptions import (
     GitGuardError,
     SecurityValidationError,
-    RemediationError,
-    AuditError,
     ConfigurationError
 )
 
@@ -46,16 +41,11 @@ from .exceptions import (
 __all__ = [
     # Core classes
     "SecurityValidator",
-    "SecurityRemediator", 
-    "SecurityAuditor",
-    "SecurityScanner",
     "GitGuardConfig",
     
     # Exceptions
     "GitGuardError",
     "SecurityValidationError", 
-    "RemediationError",
-    "AuditError",
     "ConfigurationError",
     
     # Version info

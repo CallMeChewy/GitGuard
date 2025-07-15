@@ -2,7 +2,7 @@
 # Path: gitguard/validator.py
 # Standard: AIDEV-PascalCase-2.1
 # Created: 2025-07-14
-# Last Modified: 2025-07-14  12:45PM
+# Last Modified: 2025-07-15  12:14PM
 # Author: Claude (Anthropic), as part of Project Himalaya
 """
 Security Validator - Core security validation engine for GitGuard
@@ -322,6 +322,20 @@ class SecurityValidator:
             # Skip .git directory
             if '.git' in dirs:
                 dirs.remove('.git')
+            
+            # Skip common ignored directories before traversing
+            dirs_to_remove = []
+            for d in dirs:
+                dir_path = os.path.join(root, d)
+                relative_dir = os.path.relpath(dir_path, self.project_path)
+                
+                # Check if directory should be skipped
+                if self._should_skip_directory(relative_dir):
+                    dirs_to_remove.append(d)
+            
+            # Remove directories from traversal
+            for d in dirs_to_remove:
+                dirs.remove(d)
                 
             for file in files:
                 file_path = os.path.join(root, file)
@@ -355,6 +369,47 @@ class SecurityValidator:
         except:
             return False
     
+    def _should_skip_directory(self, relative_path: str) -> bool:
+        """Check if directory should be skipped during traversal"""
+        # Common directories that should always be skipped
+        skip_patterns = [
+            '.venv',
+            'venv',
+            '.env',
+            'env',
+            'ENV',
+            'node_modules',
+            '__pycache__',
+            '.pytest_cache',
+            '.mypy_cache',
+            '.tox',
+            'build',
+            'dist',
+            '.idea',
+            '.vscode',
+            '.DS_Store',
+            'Thumbs.db'
+        ]
+        
+        # Check if directory matches any skip pattern
+        dir_name = os.path.basename(relative_path)
+        for pattern in skip_patterns:
+            if dir_name == pattern or relative_path.endswith(f'/{pattern}'):
+                return True
+        
+        # Check if directory is ignored by git
+        try:
+            result = subprocess.run(
+                ['git', 'check-ignore', relative_path],
+                cwd=self.project_path,
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            return result.returncode == 0
+        except:
+            return False
+    
     def _scan_file_contents(self):
         """Scan file contents for embedded secrets"""
         # Only scan text files under a reasonable size
@@ -366,9 +421,27 @@ class SecurityValidator:
             if '.git' in dirs:
                 dirs.remove('.git')
             
+            # Skip common ignored directories before traversing
+            dirs_to_remove = []
+            for d in dirs:
+                dir_path = os.path.join(root, d)
+                relative_dir = os.path.relpath(dir_path, self.project_path)
+                
+                # Check if directory should be skipped
+                if self._should_skip_directory(relative_dir):
+                    dirs_to_remove.append(d)
+            
+            # Remove directories from traversal
+            for d in dirs_to_remove:
+                dirs.remove(d)
+            
             for file in files:
                 file_path = Path(root) / file
                 relative_path = file_path.relative_to(self.project_path)
+                
+                # Skip files that are ignored by git
+                if self._is_file_ignored(str(relative_path)):
+                    continue
                 
                 # Skip non-text files and large files
                 if file_path.suffix.lower() not in text_extensions:
